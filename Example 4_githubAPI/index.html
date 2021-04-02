@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="sillyStyles.css">
+</head>
+
+<body>
+
+    <h1>Github User Report</h1>
+    <div class="page-wrapper">
+        <div class="form">
+            <h3>How many random words would you like? </h3>
+
+            <input id="num-words" type="text">
+            <input type="button" id="submit-num-words" value="submit!">
+
+        </div>
+        <p>USER REPORT: </p>
+        <div id="insert-info-here">
+
+        </div>
+    </div>
+
+
+
+
+    <script type="module">
+        /*import {
+            Octokit
+        } from "https://cdn.skypack.dev/@octokit/core";
+
+        const octokit = new Octokit();
+        */
+
+        const numWordsInput = document.querySelector('#num-words'); //grab the input box
+        const insertArea = document.querySelector('#insert-info-here'); //grab the list where we will append values
+        //this fucntion will genrate the HTML elements to be appended into the list 
+
+        async function getAndDisplayTheWords(e) {
+            //check if input is valid 
+            let username = numWordsInput.value;
+            //alert(numWords);
+            if (username!="") {
+                console.log('matan was here');
+                
+                //const {data} = await octokit.request(`/${username}`)
+                const rawData = await fetch(`https://api.github.com/users/${username}`);
+                const userParsedObject = await rawData.json();
+
+                console.log(userParsedObject);
+                /*
+                Could you print a user-report? See example below!
+                */
+               insertArea.innerHTML = "";
+               insertArea.innerHTML += ("<p> name : " + userParsedObject.name + "</p>");  
+               //add your statements below!           
+                
+                
+
+            } else {
+                alert('Sorry! invalid input')
+            }
+
+        }
+
+
+        document.querySelector('#submit-num-words').addEventListener('click', getAndDisplayTheWords);
+    </script>
+</body>
+
+</html>
