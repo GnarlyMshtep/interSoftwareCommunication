@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="sillyStyles.css">
+</head>
+
+<body>
+
+    <h1>Matan's Million Dollar Start-Up</h1>
+    <div class="page-wrapper">
+        <form>
+            <h3>How many random words would you like? </h3>
+            <input id="num-words" type="number">
+            <input type="button" id="submit-num-words" value="submit!">
+        </form>
+
+        <ol id="words-list">
+
+        </ol>
+    </div>
+
+
+    <script>
+        let numWordsInput = document.querySelector('#num-words'); //grab the input box
+        let wordsList = document.querySelector('#words-list'); //grab the list where we will append values
+        //this fucntion will genrate the HTML elements to be appended into the list 
+        function generateOlElement(word) {
+
+        }
+
+        async function getAndDisplayTheWords(e) {
+            //check if input is valid 
+            let numWords = parseInt(numWordsInput.value);
+            //alert(numWords);
+            if (Number.isInteger(numWords)) {
+                console.log('matan was here');
+
+                let rawData = await fetch(`https://random-word-api.herokuapp.com/word?number=${numWords}`);
+                let theWords = await rawData.json();
+                console.log(theWords);
+
+                wordsList.innerHTML = "";
+                for (let i = 0; i < numWords; i++) {
+                    let newNode = document.createElement('li');
+                    let innerText = document.createTextNode(theWords[i])
+                    newNode.appendChild(innerText);
+                    wordsList.appendChild(newNode);
+                }
+
+
+            } else {
+                alert('Sorry! invalid input')
+            }
+
+        }
+
+
+        document.querySelector('#submit-num-words').addEventListener('click', getAndDisplayTheWords);
+    </script>
+</body>
+
+</html>
