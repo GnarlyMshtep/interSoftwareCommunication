@@ -3,10 +3,12 @@
 <html>
 
 <head>
+    <!--Meta data here-->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
+    <!--not quite necessery, yet, do disscuss the web from the standpoint of backwards compatibillity!-->
+    <title>The next Twitter (AKA billion dollar unicorn app)</title>
+    <meta name="description" content="this helps google know what my site is all about">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="sillyStyles.css">
 </head>
@@ -29,10 +31,16 @@
 
     <script>
         let numWordsInput = document.querySelector('#num-words'); //grab the input box
+        /*Why don't we try to console log this and see what its all about*/
+
+
         let wordsList = document.querySelector('#words-list'); //grab the list where we will append values
         //this fucntion will genrate the HTML elements to be appended into the list 
         function generateOlElement(word) {
-
+            let newNode = document.createElement('li');
+            let innerText = document.createTextNode(word)
+            newNode.appendChild(innerText);
+            return newNode;
         }
 
         async function getAndDisplayTheWords(e) {
@@ -48,20 +56,17 @@
 
                 wordsList.innerHTML = "";
                 for (let i = 0; i < numWords; i++) {
-                    let newNode = document.createElement('li');
-                    let innerText = document.createTextNode(theWords[i])
-                    newNode.appendChild(innerText);
-                    wordsList.appendChild(newNode);
+                    wordsList.appendChild(generateOlElement(theWords[i]));
                 }
 
 
             } else {
-                alert('Sorry! invalid input')
+                alert('Sorry! invalid input');
             }
 
         }
 
-
+        /*IMPORTANT, SHOW THIS FIRST*/
         document.querySelector('#submit-num-words').addEventListener('click', getAndDisplayTheWords);
     </script>
 </body>
