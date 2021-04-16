@@ -1,23 +1,31 @@
 const express = require('express');
 const app = express();
 
-app.listen('3000');
+app.use(express.static('public')); // don't worry about it
 app.use(express.json())
-//app.use(express.static('public'))
-/*
 
-*/
+const port = 3000;
 
-app.post('/api/postSomething', (req, res) => {
+app.listen(port, () => {
+    console.log(`Example app (the therapy server) listening at http://localhost:${port}`)
+})
 
+
+app.get('/', (req, res) => {
+    res.send('Hello World! Your first server, impressive! we hope you will enjoy the therapy server')
+});
+
+app.post('/api', (req, res) => {
     res.json({
-        youSent: req
+        youSent: req.body
     });
 });
 
 app.get('/api', (req, res) => {
+    console.log(req.query);
 
     res.json({
-        youAre: 'cool'
+        youAre: 'cool',
+        query: req.query,
     });
 });
