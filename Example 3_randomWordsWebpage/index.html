@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!---->
 
 <html>
 
@@ -40,27 +41,29 @@
         //this fucntion will genrate the HTML elements to be appended into the list 
         function generateOlElement(word) {
             let newNode = document.createElement('li');
-            let innerText = document.createTextNode(word)
+            let innerText = document.createTextNode(word);
             newNode.appendChild(innerText);
             return newNode;
         }
 
         async function getAndDisplayTheWords(e) {
+            console.log(e);
             //check if input is valid 
-            let numWords = parseInt(numWordsInput.value);
+            let numWords = parseInt(numWordsInput.value); //getting the words the textbox box
             //alert(numWords);
-            if (Number.isInteger(numWords)) {
+            if (Number.isInteger(numWords)) { //if its a number
                 console.log('matan was here');
 
                 let rawData = await fetch(`https://random-word-api.herokuapp.com/word?number=${numWords}`);
+                console.log(rawData);
                 let theWords = await rawData.json();
+
                 console.log(theWords);
 
                 wordsList.innerHTML = "";
                 for (let i = 0; i < numWords; i++) {
                     wordsList.appendChild(generateOlElement(theWords[i]));
                 }
-
 
             } else {
                 alert('Sorry! invalid input');
