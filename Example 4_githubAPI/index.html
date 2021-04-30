@@ -54,9 +54,13 @@
                 
                 //const {data} = await octokit.request(`/${username}`)
                 const rawData = await fetch(`https://api.github.com/users/${username}`);
-                const userParsedObject = await rawData.json();
 
-                console.log(userParsedObject);
+                console.log('rawData: ', rawData);
+
+                const userParsedObject = await rawData.json();
+                
+                console.log('userParsedObject: ', userParsedObject);
+
                 /*
                 Could you print a user-report? See example below!
                 */
